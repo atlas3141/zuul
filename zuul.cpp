@@ -1,5 +1,7 @@
 # include <iostream>
 # include <cstring>
+# include "Room.h"
+# include "Item.h"
 
 using namespace std;
 
