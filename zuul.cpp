@@ -8,11 +8,27 @@ void strToLower(char* a);
 
 int main(){
   char input[30];
-  cin >> input;
-  strToLower(input);
-  cout << input << endl;
-  if (firstWordCmp(input,"fuck"))
-    cout << "Penis" << endl;
+  bool playing = true;
+  while (playing = true){
+    cin >> input;
+    strToLower(input);
+    if (firstWordCmp(input,"go")){
+
+    }
+    if (firstWordCmp(input,"get")){
+
+    }
+    if (firstWordCmp(input,"drop")){
+
+    }
+    if (firstWordCmp(input,"inventory")){
+
+    }
+    if (firstWordCmp(input,"help")){
+
+    }
+    if (firstWordCmp(input,"quit"))
+  }
 }
 bool firstWordCmp(char* a, const char* b){
   for(int i = 0; i < strlen(b); i++){
