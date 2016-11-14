@@ -30,5 +30,5 @@ class Room{
   void printExit();//Print out the exits
   void printDescription();//print out everything about the room
   Room* getExit(char* exitKey);//look at the exits
-}
+};
 #endif

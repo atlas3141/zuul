@@ -29,7 +29,8 @@ int main(){
     if (firstWordCmp(input,"help")){
 
     }
-    if (firstWordCmp(input,"quit"))
+    if (firstWordCmp(input,"quit")){
+    }
   }
 }
 bool firstWordCmp(char* a, const char* b){

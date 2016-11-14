@@ -15,7 +15,7 @@ void Room::takeItem(vector<Item*>* inventory, char* itemName){//Move item to inv
 } 
 void Room::putItem(vector<Item*>* inventory, char* itemName){//Move item to room
 }
-void Room::setExit(const char* exitName, room* exitRoom){//Create exit
+void Room::setExit(const char* exitName, Room* exitRoom){//Create exit
 }
 void Room::addItem(Item* item){//Place Item in the room
 }
