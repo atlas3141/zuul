@@ -1,7 +1,7 @@
 #include "Item.h"
 
-Item::Item(const char* name){
-
+Item::Item(char* newName){
+  name = newName;
 }
 char* Item::getName(){
   return name;

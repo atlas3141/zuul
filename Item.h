@@ -3,9 +3,9 @@
 
 class Item{
  private:
-  char name[64];
+  char* name;
  public:
-  Item(const char* name);
+  Item(char* newName);
   char* getName();
 };
 
