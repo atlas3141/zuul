@@ -19,9 +19,9 @@ class Room{
  private:
   map<const char*, Room*, cmp_string> exits;
   vector<Item*> items;
-  char description[300];
+  char* description;
  public:
-  Room(char newDescription[300]);
+  Room(char* newDescription);
   void takeItem(vector<Item*>* inventory, char* itemName);//Move item to inventory
   void putItem(vector<Item*>* inventory, char* itemName);//Move item to room
   void setExit(const char* exitName, Room* exitRoom);//Create exit
