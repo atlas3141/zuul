@@ -21,7 +21,7 @@ class Room{
   vector<Item*> items;
   char* description;
  public:
-  Room(char* newDescription);
+  Room(char* newDescription,vector<Room*>* roomList);
   void takeItem(vector<Item*>* inventory, char* itemName);//Move item to inventory
   void putItem(vector<Item*>* inventory, char* itemName);//Move item to room
   void setExit(const char* exitName, Room* exitRoom);//Create exit

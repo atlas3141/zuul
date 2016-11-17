@@ -8,8 +8,9 @@
 using namespace std;
 
 
-Room::Room(char* newDescription){
-  description = newDescription;
+Room::Room(char* newDescription, vector<Room*>* roomList){
+  description = strdup(newDescription);
+  roomList->push_back(this);
 }
 void Room::takeItem(vector<Item*>* inventory, char* itemName){//Move item to inventory
   for(vector<Item*>::iterator it = items.begin(); it != items.end(); it++){
