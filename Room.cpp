@@ -62,7 +62,11 @@ void Room::printDescription(){//print out everything about the room
   cout << "-----------------------" << endl;
 }
 Room* Room::getExit(char* exitKey){//look at the exits
-  if (!exits[exitKey]) 
-    cout << "Theres no exit called " << exitKey << endl;
-  return exits[exitKey];
+  map<const char*, Room*>::iterator it = exits.find(exitKey);
+  if(it != exits.end()){
+    return exits[exitKey];
+  }
+  else {
+    return NULL;
+  }
 }
