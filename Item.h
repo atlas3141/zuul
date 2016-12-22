@@ -5,7 +5,8 @@ class Item{
  private:
   char* name;
  public:
-  Item(char* newName);
+  Item(const char* newName);
+  ~Item();
   char* getName();
 };
 

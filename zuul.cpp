@@ -105,7 +105,7 @@ void roomSetup(vector<Room*>* roomList){
   bell_tower->setExit("down", church_roof);
         
   new_londo_elevator->setExit("north",firelink_shrine);
-}
+} 
 int main(){
   vector<Item*> inventory;
   vector<Room*> roomList;
@@ -150,6 +150,13 @@ int main(){
       currentRoom->printDescription();
     }
     if (firstWordCmp(input,"quit")){
+      playing = false;
+      for(vector<Item*>::iterator it = inventory.begin(); it != inventory.end(); it++){
+	delete *it;
+      }
+      for(vector<Room*>::iterator it = roomList.begin(); it != roomList.end(); it++){
+	delete *it;
+      }
     }
     cin.ignore();
   }

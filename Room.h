@@ -20,11 +20,16 @@ class Room{
   map<const char*, Room*, cmp_string> exits;
   vector<Item*> items;
   char* description;
+  bool hasEnemy;
+  char* enemyName;
+  int enemyLevel;
  public:
-  Room(char* newDescription,vector<Room*>* roomList);
+  Room(const char* newDescription,vector<Room*>* roomList);
+  ~Room();
   void takeItem(vector<Item*>* inventory, char* itemName);//Move item to inventory
   void putItem(vector<Item*>* inventory, char* itemName);//Move item to room
   void setExit(const char* exitName, Room* exitRoom);//Create exit
+  void setEnemy(const char* name, int level); //Set the Enemy Type, no enemies by default
   void addItem(Item* item);//Place Item in the room
   void printItems(); //Print out the items
   void printExit();//Print out the exits

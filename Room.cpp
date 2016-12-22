@@ -8,9 +8,19 @@
 using namespace std;
 
 
-Room::Room(char* newDescription, vector<Room*>* roomList){
+Room::Room(const char* newDescription, vector<Room*>* roomList){
   description = strdup(newDescription);
   roomList->push_back(this);
+  enemyLevel = -1;
+  hasEnemy = false;
+}
+Room::~Room(){
+  delete description;
+  delete enemyName;
+  for(vector<Item*>::iterator it = items.begin(); it != items.end(); it++){
+    delete *it;
+   }
+  exits.erase(exits.begin(),exits.end());
 }
 void Room::takeItem(vector<Item*>* inventory, char* itemName){//Move item to inventory
   for(vector<Item*>::iterator it = items.begin(); it != items.end(); it++){
@@ -36,6 +46,9 @@ void Room::putItem(vector<Item*>* inventory, char* itemName){//Move item to room
 }
 void Room::setExit(const char* exitName, Room* exitRoom){//Create exit
   exits[exitName] = exitRoom;
+}
+void Room::setEnemy(const char* name, int level){
+
 }
 void Room::addItem(Item* item){//Place Item in the room
   items.push_back(item);
