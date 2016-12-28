@@ -103,41 +103,85 @@ void roomSetup(vector<Room*>* roomList){
   church_roof->setExit("up", bell_tower);
         
   bell_tower->setExit("down", church_roof);
-        
-  new_londo_elevator->setExit("north",firelink_shrine);
-} 
+  
+  graveyard->setEnemy("skeletons",1);
+  church_floor->setEnemy("Kights of Balder",1);
+  lower_burg_rooftops->setEnemy("Undead Peasants",0);
+  undead_burg_towers->setEnemy("Undead Soldiers",1);
+  havels_tower->setEnemy("Havel Knight",2);
+  under_bridge->setEnemy("Giant Rats",1);
+  dragon_bridge->setEnemy("Helkite Drake",3);
+  boar_alley->setEnemy("Armored Boar",2);
+  upper_church->setEnemy("Chaneler",2);
+  church_roof->setEnemy("Gargoyles",3);
+  taurus_bridge->setEnemy("Taurus Demon",2);
+      
+  firelink_shrine->giveBonfire();
+  undead_burg_bonfire->giveBonfire();
+  andres_tower->giveBonfire();
+
+  parish_elevators->addItem(new Item("longsword",2));
+  graveyard->addItem(new Item("zweihander",3));
+  lower_burg_rooftops->addItem(new Item("firebombs",3));
+
+  bell_tower->setEnd();
+ } 
 int main(){
   vector<Item*> inventory;
   vector<Room*> roomList;
   Room* currentRoom;
+  Room* currentCheckpoint;
   char input[30];
   bool playing = true;
 
-  Item* item1 = new Item("sword");
+  Item* hands = new Item("fists", 0);
+  Item* pendant = new Item("pendant", 0);
+  Item * hilt = new Item("hilt",0);
+  inventory.push_back(hands);
+  inventory.push_back(pendant);
+  inventory.push_back(hilt);
+
 
   roomSetup(&roomList);
   currentRoom = *roomList.begin();
+  currentCheckpoint = currentRoom;
   currentRoom->printDescription();
 
-  while (playing = true){
-    
+  while (playing == true){
     cin.get(input,30);
     strToLower(input);
-
+    
     if (firstWordCmp(input,"go")){
       Room* newRoom = currentRoom->getExit(input + 3);
       if (newRoom){
 	currentRoom = newRoom;
-	currentRoom->printDescription();
+	if (currentRoom->isEnd()){
+	  cout << "You are on the highest point in the undead burg, the bell tower" << endl;
+          cout << "You ring the church bells, signaling the first part of your journey is over. \n but this games scope is small \n so its over right now. \n good job. \n YOU WIN" << endl;
+          playing = false;
+        }
+	else{
+	  if(currentRoom->isCheckpoint())
+	    currentCheckpoint = currentRoom;
+	  currentRoom->printDescription();
+	  if (currentRoom->combat( inventory)){
+	    cout << "You were killed. You return to the last bonfire" << endl;
+	    currentRoom = currentCheckpoint;
+	  currentRoom->printDescription();
+	  }
+	}
+      }
+      else{
+	cout << "You can't go " << (input + 3) << endl;
       }
     }
-    if (firstWordCmp(input,"get")){
+    else  if (firstWordCmp(input,"get")){
       currentRoom->takeItem(&inventory,input +4);
     }
-    if (firstWordCmp(input,"drop")){
+    else if (firstWordCmp(input,"drop")){
       currentRoom->putItem(&inventory, input + 5);
     }
-    if (firstWordCmp(input,"inventory")){
+    else if (firstWordCmp(input,"inventory")){
       bool haveItems = false;
       for(vector<Item*>::iterator it = inventory.begin(); it != inventory.end(); it++){
 	cout << (*it)->getName();
@@ -146,19 +190,23 @@ int main(){
       if (!haveItems)
 	cout << "You dont have anything" << endl;
     }
-    if (firstWordCmp(input,"help")){
+    else if (firstWordCmp(input,"help")){
       currentRoom->printDescription();
     }
-    if (firstWordCmp(input,"quit")){
+    else if (firstWordCmp(input,"quit")){
       playing = false;
-      for(vector<Item*>::iterator it = inventory.begin(); it != inventory.end(); it++){
-	delete *it;
-      }
-      for(vector<Room*>::iterator it = roomList.begin(); it != roomList.end(); it++){
-	delete *it;
-      }
+    }
+    else{
+      cout << "I dont know what you mean" << endl;
+      cin.clear();
     }
     cin.ignore();
+  }
+  for(vector<Item*>::iterator it = inventory.begin(); it != inventory.end(); it++){
+    delete *it;
+  }
+  for(vector<Room*>::iterator it = roomList.begin(); it != roomList.end(); it++){
+    delete *it;
   }
 }
 bool firstWordCmp(char* a, const char* b){

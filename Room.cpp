@@ -12,7 +12,9 @@ Room::Room(const char* newDescription, vector<Room*>* roomList){
   description = strdup(newDescription);
   roomList->push_back(this);
   enemyLevel = -1;
+  hasBonfire = false;
   hasEnemy = false;
+  end = false;
 }
 Room::~Room(){
   delete description;
@@ -34,6 +36,10 @@ void Room::takeItem(vector<Item*>* inventory, char* itemName){//Move item to inv
   cout << "There is no " << itemName << endl;
 } 
 void Room::putItem(vector<Item*>* inventory, char* itemName){//Move item to room
+  if(!strcmp(itemName,"fists")){
+      cout << "You cant drop your own hands" << endl;
+      return;
+    }
   for(vector<Item*>::iterator it = inventory->begin(); it != inventory->end(); it++){
     if (!strcmp((*it)->getName(),itemName)){
       items.push_back(*it);
@@ -48,7 +54,9 @@ void Room::setExit(const char* exitName, Room* exitRoom){//Create exit
   exits[exitName] = exitRoom;
 }
 void Room::setEnemy(const char* name, int level){
-
+  enemyName = strdup(name);
+  enemyLevel = level;
+  hasEnemy = true;
 }
 void Room::addItem(Item* item){//Place Item in the room
   items.push_back(item);
@@ -83,4 +91,37 @@ Room* Room::getExit(char* exitKey){//look at the exits
   else {
     return NULL;
   }
+}
+void Room::giveBonfire(){
+  hasBonfire = true;
+}
+bool Room::isCheckpoint(){
+  return hasBonfire;
+}
+bool Room::combat(vector<Item*> inventory){
+  if(!hasEnemy){
+    return false;
+  }
+  cout << "The " << enemyName << " attack(s) you!" << endl;
+  cout << "-----------------------" << endl;
+  Item* bestWeapon = (*inventory.begin());
+  for(vector<Item*>::iterator it = inventory.begin(); it != inventory.end(); it++){
+    if ((*it)->getPowerLevel() > bestWeapon->getPowerLevel()){
+      bestWeapon = (*it);
+    }
+  }
+  if (bestWeapon->getPowerLevel() >= enemyLevel){
+    cout << "You defeated the " << enemyName << " with your " << bestWeapon->getName() << endl;
+    return false;
+  }
+  else{
+    cout << "Your " << bestWeapon->getName() << " couldn't hurt the " << enemyName << endl;
+    return true;
+  }
+}
+void Room::setEnd(){
+  end = true;
+}
+bool Room::isEnd(){
+  return end;
 }

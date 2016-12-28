@@ -20,9 +20,11 @@ class Room{
   map<const char*, Room*, cmp_string> exits;
   vector<Item*> items;
   char* description;
+  bool hasBonfire;
   bool hasEnemy;
   char* enemyName;
   int enemyLevel;
+  bool end;
  public:
   Room(const char* newDescription,vector<Room*>* roomList);
   ~Room();
@@ -35,5 +37,10 @@ class Room{
   void printExit();//Print out the exits
   void printDescription();//print out everything about the room
   Room* getExit(char* exitKey);//look at the exits
+  void giveBonfire();
+  bool isCheckpoint();
+  bool combat(vector<Item*> inventory);
+  bool isEnd();
+  void setEnd();
 };
 #endif

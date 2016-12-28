@@ -4,9 +4,11 @@
 class Item{
  private:
   char* name;
+  int powerLevel;
  public:
-  Item(const char* newName);
+  Item(const char* newName, int newPowerLevel);
   ~Item();
+  int getPowerLevel();
   char* getName();
 };
 
