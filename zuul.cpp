@@ -4,11 +4,11 @@
 # include "Room.h"
 # include "Item.h"
 using namespace std;
-
+//Zuul, a text based adventure game, this one is a recreation of the first areas of dark souls
 bool firstWordCmp(char* a, const char* b);
 void strToLower(char* a);
 
-void roomSetup(vector<Room*>* roomList){
+void roomSetup(vector<Room*>* roomList){ //this is a hundred lines of setup, lots of fun
   Room* firelink_shrine = new Room("in a ruined shrine built around a bonfire. There are people around. You are safe.", roomList);
   Room* graveyard = new Room("in a large graveyard, there are items and skeletons all around", roomList);
   Room* aquaduct = new Room("in a rotting aquaduct over a cliff", roomList);
@@ -126,7 +126,7 @@ void roomSetup(vector<Room*>* roomList){
 
   bell_tower->setEnd();
  } 
-int main(){
+int main(){ //start here
   vector<Item*> inventory;
   vector<Room*> roomList;
   Room* currentRoom;
@@ -209,14 +209,14 @@ int main(){
     delete *it;
   }
 }
-bool firstWordCmp(char* a, const char* b){
+bool firstWordCmp(char* a, const char* b){ //checks to see if the first part of the longer word matches the short one
   for(int i = 0; i < strlen(b); i++){
     if (a[i] != b[i])
       return false;
   }
   return true;
 }
-void strToLower(char* a){
+void strToLower(char* a){ //converts words to lower
   while(*a){
     *a = tolower(*a);
     a++;

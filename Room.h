@@ -6,10 +6,10 @@
 #include <vector>
 #include <map>
 #include "Item.h"
-
+//rooms class that holds everything about the room
 using namespace std;
 
-struct cmp_string{
+struct cmp_string{ //overoads a function so that the map can work decently
   bool operator()(char const *a, char const *b){
     return strcmp(a,b) < 0;
   }

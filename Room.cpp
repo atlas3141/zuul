@@ -6,9 +6,9 @@
 #include "Room.h"
 
 using namespace std;
+//rooms class that holds everything about the room
 
-
-Room::Room(const char* newDescription, vector<Room*>* roomList){
+Room::Room(const char* newDescription, vector<Room*>* roomList){ // sets up the room and its info
   description = strdup(newDescription);
   roomList->push_back(this);
   enemyLevel = -1;
@@ -16,7 +16,7 @@ Room::Room(const char* newDescription, vector<Room*>* roomList){
   hasEnemy = false;
   end = false;
 }
-Room::~Room(){
+Room::~Room(){ //delete the room and everything else
   delete description;
   delete enemyName;
   for(vector<Item*>::iterator it = items.begin(); it != items.end(); it++){
@@ -98,7 +98,7 @@ void Room::giveBonfire(){
 bool Room::isCheckpoint(){
   return hasBonfire;
 }
-bool Room::combat(vector<Item*> inventory){
+bool Room::combat(vector<Item*> inventory){ //run combat that just checks the level of your items and sends you back if you die
   if(!hasEnemy){
     return false;
   }
